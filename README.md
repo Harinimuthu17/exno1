@@ -1,3 +1,5 @@
+## M.Harini
+## 212222240035
 # Exno:1
 Data Cleaning Process
 
@@ -20,135 +22,99 @@ STEP 5: Remove outliers using IQR
 
 STEP 6: Use zscore of to remove outliers
 
-# Coding and Output-
+# Code and Output
 ```
-Name: M.Harini
-Register Number: 212222240035
+NAME : M Sanjay
+REG NO : 212222240090
 ```
+### 1. Read and display DataFrame
+
 ```
 import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-data = pd.read_csv("/content/SAMPLEIDS.csv")
-data.head()
+df = pd.read_csv("SAMPLEIDS.csv")
+print(df)
 ```
-![image](https://github.com/Harinimuthu17/exno1/assets/130278614/66304815-82bb-4828-8227-7b63b1be9666)
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/98150305-89b4-4f9d-8f8d-e94269d8e8e4)
+### 2. Display head
 
 ```
-data = pd.get_dummies(data)
-data.isnull().sum()
+df.head(5)
 ```
-![image](https://github.com/Harinimuthu17/exno1/assets/130278614/fb48a003-c9a5-495a-ab96-16bd21102a4b)
-
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/ad2e1d6f-280e-417a-9e48-4e6df855a350)
+### 3. Describe about the dataframe  
 ```
-columns_with_null = data.columns[data.isnull().any()]
-import seaborn as sns
-plt.figure(figsize=(10,10))
-sns.barplot(columns_with_null)
-plt.title("NULL VALUES")
-plt.show()
+df.describe()
 ```
-![image](https://github.com/Harinimuthu17/exno1/assets/130278614/2e3f7639-f6f6-4e10-92ea-decc2ed1ecd5)
-
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/b6663326-b20b-42f7-999b-db4438b79f41)
+### 4. Info of datafram
 ```
-for column in columns_with_null:
-    median = data[column].median()  
-    data[column].fillna(median, inplace=True)
-data.isnull().sum().sum()
+df.info()
 ```
-![image](https://github.com/Harinimuthu17/exno1/assets/130278614/e82fcf34-3008-4e32-b8bc-df068c852645)
-
-# IQR 
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/e2ed3581-ea89-4f9d-ad1b-229b5afd27ca)
+### 5. Display tail
 ```
-import pandas as pd
-import seaborn as sns
-ir = pd.read_csv("/content/iris (1).csv")
-ir.head()
+df.tail()
 ```
-![image](https://github.com/Harinimuthu17/exno1/assets/130278614/d82c37b5-6137-41cb-8d67-fc52c5c056ff)
-
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/81a49209-a138-40a9-836e-f2571d6cf4b0)
+### 6. Shape of the datafram
 ```
-ir.describe()
+df.shape
 ```
-![image](https://github.com/Harinimuthu17/exno1/assets/130278614/ee691782-28a6-49ce-a594-1d086de3ec0d)
-
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/1f64b9b6-76b2-4764-a3f4-e2182c1d2ffc)
+### 7. Checking tha Null values
+``` 
+df.isnull().sum()
 ```
-sns.boxplot(x='sepal_width',data=ir)
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/2040ff5d-0744-4661-b248-fe62e996c836)
+### 8. FIll the Null values
 ```
-![image](https://github.com/Harinimuthu17/exno1/assets/130278614/31291486-2ee0-4425-b445-d22d69cf83cf)
-
+df.fillna(value=10)  
 ```
-c1=ir.sepal_width.quantile(0.25)
-c3=ir.sepal_width.quantile(0.75)
-iq=c3-c1
-print(c3)
+ ![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/42f9b342-5b77-479c-97c8-25d0e2d0b162)
+### 9. Fill value to null values
 ```
-![image](https://github.com/Harinimuthu17/exno1/assets/130278614/a00b9b93-e074-4277-8ebe-26a29d2568a6)
-
-
-```
-rid=ir[((ir.sepal_width<(c1-1.5*iq))|(ir.sepal_width>(c3+1.5*iq)))]
-rid['sepal_width']
-```
-![image](https://github.com/Harinimuthu17/exno1/assets/130278614/da19fa68-4495-40f8-8643-013b25ced769)
-
-```
-delid=ir[~((ir.sepal_width<(c1-1.5*iq))|(ir.sepal_width>(c3+1.5*iq)))]
-delid
-```
-![image](https://github.com/Harinimuthu17/exno1/assets/130278614/c7e7261a-71ef-4a5c-ae26-eb157683693a)
-
-```
-sns.boxplot(x='sepal_width',data=delid)
-```
-![image](https://github.com/Harinimuthu17/exno1/assets/130278614/26fd3ca9-680d-4cdd-b488-5c2eecf0ebfe)
-```
-# Z Score
-
-```
-import matplotlib.pyplot as plt
-import pandas as pd
-import numpy as np
-import scipy.stats as stats
-dataset=pd.read_csv("/content/heights.csv")
-dataset
-```
-![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/f01f125b-7c8e-4fba-9a31-6c09ef3b6974)
-```
-df = pd.read_csv("heights.csv")
-q1 = df['height'].quantile(0.25)
-q2 = df['height'].quantile(0.5)
-q3 = df['height'].quantile(0.75)
-
+df.fillna(method='ffill')
 ```
 
-```
-iqr = q3-q1
-iqr
-```
-![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/8a9a9dfd-0738-499d-95be-7a258f56424b)
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/1ad10c50-0e75-4660-95bb-e2f9f5f67d80)
 
-```
-low = q1 - 1.5*iqr
-low
-```
-![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/6d918b46-664f-4910-9574-33fc03f6a372)
-```
-high = q3 + 1.5*iqr
-high
-```
-![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/d3f8ec32-b8ac-436a-a851-9060cdadc505)
-```
-df1 = df[((df['height'] >=low)& (df['height'] <=high))]
-df1
-```
-![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/16fa8456-0ad8-4e94-9a83-87fdfc6b5e80)
-```
-z = np.abs(stats.zscore(df['height']))
-z
-```
-![image](https://github.com/Vanitha-SM/exno1-datascience/assets/119557985/5e6c94d4-04a9-46c6-bc4e-9c6912f96544)
 
-# Result
-Thus the given data is read,cleansed and the cleaned data is saved into the file.
+## IQR METHOD:
+
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/8ddf662f-4841-4d79-bfd6-a8a6cfc845ea)
+
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/417d4ef4-fb53-4c46-9486-b152c898490c)
+
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/123d5d45-acf7-40ca-a976-e7425539de05)
+
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/10893ace-891f-4f41-b6e8-54df22531525)
+
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/5aadd65e-5a98-4f34-abe9-54a7fdf2353d)
+
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/43427525-4ffc-4886-a27f-b3c89c2ea0f3)
+
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/e5476b21-c662-4f1c-ad79-9f0a08d768c5)
+
+
+## Z-SCORE METHOD:
+
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/e4cf2d42-f7b4-49dd-a80e-366a48786e5d)
+
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/02b4980e-29fc-4939-9362-c68531cacbd3)
+
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/3b6744c4-3f4a-488f-baa3-d57fe76b4683)
+
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/dd967c3b-d963-49da-83f5-177a8ff999d5)
+
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/050e8baa-2b68-4c5e-9270-80b098b8ecb7)
+
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/2f869bfb-1cf8-41f4-ba05-6a8be2315538)
+
+![image](https://github.com/Ashwinkumar-03/exno1/assets/118663725/573946b5-f540-4d27-8497-2666fefb8917)
+
+
+# Result:
+The data clearning has beeen done successfully.
+
+
 
